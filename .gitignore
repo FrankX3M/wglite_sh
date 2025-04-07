@@ -5,6 +5,7 @@
 .ssh/
 .vscode-remote-containers/
 .vscode-server/
+config/
 
 # Конфиги и история команд
 .bash_history
