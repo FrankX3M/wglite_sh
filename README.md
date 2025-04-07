@@ -29,6 +29,7 @@ ssh username@server_ip
 ```bash
 apt update && \
 apt install -y git && \
+if [ -d "wglite_sh" ]; then rm -rf wglite_sh; fi && \
 git clone https://github.com/FrankX3M/wglite_sh.git && \
 cd wglite_sh && \
 chmod +x start-wg.sh && \
