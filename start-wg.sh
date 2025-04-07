@@ -109,10 +109,14 @@ docker compose up -d
 # очистка неиспользуемых контейнеров
 docker system prune -a
 
+# Создаем папки для конфигураций
+mkdir -p /root/wglite_sh/config/wg_confs
+mkdir -p /root/wglite_sh/config/peer_client1
+chown -R 1000:1000 /root/wglite_sh/config
 
-# получить QR код
-sudo docker exec -it wireguard /app/show-peer 1
-
+# создаем пир и выводим конфигурацию
+chmod +x new_client.sh
+./new_client.sh
 
 
 
