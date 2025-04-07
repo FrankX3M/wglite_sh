@@ -15,6 +15,8 @@
 # Конфигурационные файлы WireGuard
 wg0.conf
 wireguard-backup/
+lsblk_raw
+wg.sh
 
 # Docker override-файлы (если есть)
 docker-compose.override.yml
