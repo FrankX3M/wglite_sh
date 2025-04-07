@@ -91,7 +91,7 @@ services:
       - TZ=Europe/Moscow
       - SERVERURL=auto       # Автоматическое определение внешнего IP
       - SERVERPORT=51820     # Порт для WireGuard
-      - PEERS=2              # Установите 0, чтобы не создавать дополнительных пиров при перезапуске
+      - PEERS=peer1              # Установите 0, чтобы не создавать дополнительных пиров при перезапуске
       - PEERDNS=auto         # Автоматическое определение DNS
       - INTERNAL_SUBNET=10.13.13.0
     volumes:
