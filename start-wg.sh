@@ -106,11 +106,15 @@ EOL
 # Запуск контейнера
 docker compose up -d
 
+# очистка неиспользуемых контейнеров
+docker system prune -a
+
 #  переходим в папку с конейнером
 cd wglite_sh
 
 # получить QR код
 sudo docker exec -it wireguard /app/show-peer 1
+
 
 
 
