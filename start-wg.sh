@@ -106,6 +106,9 @@ EOL
 # Запуск контейнера
 docker compose up -d
 
+# получить QR код
+sudo docker exec -it wireguard /app/show-peer 1
+
 
 
 # Генерация приватного ключа
