@@ -1,0 +1,29 @@
+# Конфигурации и кэш пользователя
+.cache/
+.dotnet/
+.local/
+.ssh/
+.vscode-remote-containers/
+.vscode-server/
+
+# Конфиги и история команд
+.bash_history
+.bashrc
+.profile
+.wget-hsts
+
+# Конфигурационные файлы WireGuard
+wg0.conf
+wireguard-backup/
+
+# Docker override-файлы (если есть)
+docker-compose.override.yml
+docker-compose.override.yaml
+
+# Скрипты, если они генерируются автоматически — уточните
+# start-wg.sh
+# wg.sh
+
+# Другие системные файлы
+.DS_Store
+Thumbs.db

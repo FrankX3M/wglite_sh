@@ -1,0 +1,23 @@
+services:
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      # SYS_MODULE можно убрать, т.к. модуль wireguard уже активен на вашем сервере
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Moscow
+      - SERVERURL=auto       # Автоматическое определение внешнего IP
+      - SERVERPORT=51820     # Порт для WireGuard
+      - PEERS=2              # Установите 0, чтобы не создавать дополнительных пиров при перезапуске
+      - PEERDNS=auto         # Автоматическое определение DNS
+      - INTERNAL_SUBNET=10.13.13.0
+    volumes:
+      - ./config:/config     # Основное хранилище конфигурации
+    ports:
+      - 51820:51820/udp
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: unless-stopped
