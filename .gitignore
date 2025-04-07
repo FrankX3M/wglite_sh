@@ -17,11 +17,12 @@ config/
 wg0.conf
 wireguard-backup/
 lsblk_raw
-wg.sh
+
 
 # Docker override-файлы (если есть)
 docker-compose.override.yml
 docker-compose.override.yaml
+docker-compose.yml
 
 # Скрипты, если они генерируются автоматически — уточните
 # start-wg.sh
