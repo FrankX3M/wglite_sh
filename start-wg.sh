@@ -84,23 +84,43 @@ services:
     container_name: wireguard
     cap_add:
       - NET_ADMIN
-      # SYS_MODULE можно убрать, т.к. модуль wireguard уже активен на вашем сервере
+      - SYS_MODULE
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Moscow
-      - SERVERURL=auto       # Автоматическое определение внешнего IP
-      - SERVERPORT=51820     # Порт для WireGuard
-      - PEERS=peer1              # Установите 0, чтобы не создавать дополнительных пиров при перезапуске
-      - PEERDNS=auto         # Автоматическое определение DNS
+      - SERVERURL=auto
+      - SERVERPORT=51820
+      - PEERS=peer1  # Можно указать нужное количество пиров
+      - PEERDNS=1.1.1.1,8.8.8.8  # Явно указываем DNS
       - INTERNAL_SUBNET=10.13.13.0
+      - ALLOWEDIPS=0.0.0.0/0  # Разрешаем весь трафик через VPN
     volumes:
-      - ./config:/config     # Основное хранилище конфигурации
+      - ./config:/config
     ports:
       - 51820:51820/udp
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
+      - net.ipv4.ip_forward=1  # Явно включаем IP форвардинг
     restart: unless-stopped
+    # Добавляем скрипты, которые будут выполняться при запуске
+    command: |
+      sh -c '
+        # Запуск основного процесса
+        /init &
+        # Даем время на инициализацию WireGuard
+        sleep 10
+        # Настройка iptables
+        iptables -t nat -F POSTROUTING
+        iptables -t nat -A POSTROUTING -s 10.13.13.0/24 -o eth+ -j MASQUERADE
+        iptables -F FORWARD
+        iptables -A FORWARD -i wg0 -o eth+ -j ACCEPT
+        iptables -A FORWARD -i eth+ -o wg0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+        # Установка MTU (может помочь с проблемами подключения)
+        ip link set mtu 1420 dev wg0
+        # Ожидание завершения основного процесса
+        wait
+      '
 EOL
 
 # Запуск контейнера
