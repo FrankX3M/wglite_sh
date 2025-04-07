@@ -116,7 +116,9 @@ chown -R 1000:1000 /root/wglite_sh/config
 
 # создаем пир и выводим конфигурацию
 chmod +x new_client.sh
-./new_client.sh
+./new_client.sh client 1
+./new_client.sh client 2
+./new_client.sh client 3
 
 
 
